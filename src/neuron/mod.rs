@@ -20,9 +20,9 @@ pub fn backward(output: &f64, target: &f64, inputs: &Vec<f64>, weights: &mut Vec
     let error = output - target;
     let delta = error * derivation(output, activation);
     for (weight, &input) in weights.iter_mut().zip(inputs.iter()) {
-        *weight -= delta * input * learning_rate; // Apply the learning rate here
+        *weight -= delta * input * learning_rate;
     }
-    *bias -= delta * learning_rate; // Apply the learning rate to the bias as well
+    *bias -= delta * learning_rate;
 }
 
 fn derivation(x: &f64, activation:fn(&f64) ->f64) -> f64 {
