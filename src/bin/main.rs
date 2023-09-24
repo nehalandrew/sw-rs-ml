@@ -7,9 +7,9 @@ use rand::seq::SliceRandom; // Import the SliceRandom trait
 use rsml::layer::Layer;
 
 fn main() {
-     let (dataset,result) = iris_csv::load("data/iris.csv").unwrap();
+    let (dataset,result) = iris_csv::load("data/iris.csv").unwrap();
 
-  //    let (dataset,result) = iris::load_data();
+    //    let (dataset,result) = iris::load_data();
     println!("datasets {} result {}", dataset.len(), result.len());
     println!("datasets {} result {}", dataset.len(), result.len());
 
@@ -22,7 +22,7 @@ fn main() {
     let dataset = dataset.iter().zip(result.iter()).collect::<Vec<_>>();
 
     // train the layer
-    for i in 0..1000 {
+    for i in 0..150 {
         let random_pair = dataset.choose(&mut rng);
 
         // Check if there's a pair (i.e., the vector is not empty)
@@ -33,7 +33,7 @@ fn main() {
     }
 
 
-    let output = layer.predict(&vec![6.6,2.9,4.6,1.3]).unwrap();
+    let output = layer.predict(&vec![4.3,3.0,1.1,0.1]).unwrap();
     // layer.feed_forward(&vec![-1.0, 1.0], &output).unwrap();
 
 

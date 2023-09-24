@@ -22,7 +22,7 @@ fn main() {
     let dataset = dataset.iter().zip(result.iter()).collect::<Vec<_>>();
 
     // train the layer
-    for i in 0..100 {
+    for i in 0..150 {
         let random_pair = dataset.choose(&mut rng);
 
         // Check if there's a pair (i.e., the vector is not empty)
@@ -33,7 +33,7 @@ fn main() {
     }
 
 
-    let output = layer.predict(&vec![5.1,3.5,1.4,0.2]).unwrap();
+    let output = layer.predict(&vec![4.3,3.0,1.1,0.1]).unwrap();
     // layer.feed_forward(&vec![-1.0, 1.0], &output).unwrap();
 
 
