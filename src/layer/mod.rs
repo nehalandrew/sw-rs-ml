@@ -1,11 +1,16 @@
 use rand::seq::index::sample_weighted;
+use crate::FunctionInterface;
+
+/// # Layer
+/// layer is a DAO for a layer of neurons
+/// is cool you will like it
 
 pub struct Layer {
     pub lweights: Vec<Vec<f64>>,
     pub biases: Vec<f64>,
     pub activation: fn(&f64) -> f64,
 }
-impl Layer {
+impl FunctionInterface for Layer{
     pub fn new(number_inputs: u64, number_neurons: u64, activation: fn(&f64) -> f64) -> Layer {
         let mut lweights = Vec::new();
         let mut biases = Vec::new();
@@ -23,7 +28,6 @@ impl Layer {
             activation,
         };
     }
-
     pub fn load(
         lweights: Vec<Vec<f64>>,
         biases: Vec<f64>,
@@ -38,7 +42,6 @@ impl Layer {
             activation,
         });
     }
-
     pub fn predict(&self, inputs: &Vec<f64>) -> Result<Vec<f64>, String> {
         let mut outputs = Vec::new();
         for (nweights, bias) in self.lweights.iter().zip(self.biases.iter()) {
@@ -62,19 +65,19 @@ impl Layer {
         // if inputs.len() != targets.len() {
         //     return Err("Input and target datasets have different lengths".to_string());
         // }
-            for input in inputs{
-                let output = self.predict(inputs).unwrap();
-                for i in 0..self.lweights.len() {
-                    super::neuron::backward(
-                        &output[i],
-                        &targets[i],
-                        &inputs,
-                        &mut self.lweights[i], // Pass weights as a mutable reference
-                        &mut self.biases[i],
-                        self.activation,
-                        learning_rate,
-                    );
-                }
+        for input in inputs{
+            let output = self.predict(inputs).unwrap();
+            for i in 0..self.lweights.len() {
+                super::neuron::backward(
+                    &output[i],
+                    &targets[i],
+                    &inputs,
+                    &mut self.lweights[i], // Pass weights as a mutable reference
+                    &mut self.biases[i],
+                    self.activation,
+                    learning_rate,
+                );
+            }
 
 
             // let errors: Vec<f64> = prediction
@@ -92,6 +95,13 @@ impl Layer {
 
         Ok(())
     }
+
+}
+impl Layer {
+
+
+
+
 }
 
 #[cfg(test)]
